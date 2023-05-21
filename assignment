@@ -1,0 +1,19 @@
+import pandas as pd
+
+data = {'Ship_Mode': ['Same Day', 'First Class', 'Standard Class', 'Second Class'],
+        'Sales': [1000, 1500, 2000, 1200],
+        'Profit': [200, 300, 400, 250]}
+df = pd.DataFrame(data)
+
+conditions = [
+    (df['Ship_Mode'] == 'Same Day'),
+    (df['Ship_Mode'] == 'First Class'),
+    (df['Ship_Mode'] == 'Standard Class')
+]
+surcharge_values = [0.2, 0.1, 0.05]
+
+df['Surcharge'] = pd.np.select(conditions, surcharge_values, 0)
+
+df['Total_Cost'] = (df['Sales'] - df['Profit']) * (1 + df['Surcharge'])
+
+print(df)
